@@ -1,0 +1,295 @@
+﻿<Window x:Class="CalculatorWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Калькулятор" Height="550" Width="400" 
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResize"
+        MinHeight="450" MinWidth="350">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="LightBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="LightForeground" Color="#000000"/>
+        <SolidColorBrush x:Key="LightButtonBg" Color="#F0F0F0"/>
+        <SolidColorBrush x:Key="LightOperatorBg" Color="#FF9800"/>
+        <SolidColorBrush x:Key="LightFunctionBg" Color="#607D8B"/>
+        <SolidColorBrush x:Key="LightEqualsBg" Color="#4CAF50"/>
+        <SolidColorBrush x:Key="LightDisplayBg" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="LightDisplayBorder" Color="#E0E0E0"/>
+
+        <SolidColorBrush x:Key="DarkBackground" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="DarkForeground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="DarkButtonBg" Color="#3E3E3E"/>
+        <SolidColorBrush x:Key="DarkOperatorBg" Color="#F57C00"/>
+        <SolidColorBrush x:Key="DarkFunctionBg" Color="#455A64"/>
+        <SolidColorBrush x:Key="DarkEqualsBg" Color="#388E3C"/>
+        <SolidColorBrush x:Key="DarkDisplayBg" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="DarkDisplayBorder" Color="#555555"/>
+
+        <SolidColorBrush x:Key="BlueBackground" Color="#1A237E"/>
+        <SolidColorBrush x:Key="BlueForeground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BlueButtonBg" Color="#283593"/>
+        <SolidColorBrush x:Key="BlueOperatorBg" Color="#FF6F00"/>
+        <SolidColorBrush x:Key="BlueFunctionBg" Color="#00695C"/>
+        <SolidColorBrush x:Key="BlueEqualsBg" Color="#2E7D32"/>
+        <SolidColorBrush x:Key="BlueDisplayBg" Color="#121858"/>
+        <SolidColorBrush x:Key="BlueDisplayBorder" Color="#3949AB"/>
+
+        <Style x:Key="LightCalculatorButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource LightButtonBg}"/>
+            <Setter Property="Foreground" Value="{StaticResource LightForeground}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5" 
+                                BorderBrush="#CCCCCC" 
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LightOperatorButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource LightOperatorBg}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LightFunctionButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource LightFunctionBg}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LightEqualsButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource LightEqualsBg}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <Button x:Name="LightThemeBtn" 
+                    Content="Светлая" 
+                    Width="80" Height="30" 
+                    Margin="5"
+                    Background="#F0F0F0" 
+                    Foreground="Black"
+                    Click="ThemeButton_Click" 
+                    Tag="Light"/>
+            <Button x:Name="DarkThemeBtn" 
+                    Content="Тёмная" 
+                    Width="80" Height="30" 
+                    Margin="5"
+                    Background="#3E3E3E" 
+                    Foreground="White"
+                    Click="ThemeButton_Click" 
+                    Tag="Dark"/>
+            <Button x:Name="BlueThemeBtn" 
+                    Content="Синяя" 
+                    Width="80" Height="30" 
+                    Margin="5"
+                    Background="#283593" 
+                    Foreground="White"
+                    Click="ThemeButton_Click" 
+                    Tag="Blue"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,10">
+            <ToggleButton x:Name="ModeToggle" 
+                          Content="Инженерный режим" 
+                          Height="30" 
+                          FontSize="14"
+                          Checked="ModeToggle_Checked"
+                          Unchecked="ModeToggle_Unchecked"/>
+        </StackPanel>
+
+        <Border Grid.Row="2" 
+                x:Name="DisplayBorder"
+                CornerRadius="5" 
+                BorderThickness="1"
+                Margin="0,0,0,10"
+                Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBox x:Name="ExpressionTextBox" 
+                         Grid.Row="0"
+                         FontSize="16" 
+                         TextAlignment="Right"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         IsReadOnly="True"
+                         Height="25"/>
+
+                <TextBox x:Name="ResultTextBox" 
+                         Grid.Row="1"
+                         FontSize="28" 
+                         FontWeight="Bold"
+                         TextAlignment="Right"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         IsReadOnly="True"
+                         Text="0"
+                         Height="45"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="3" x:Name="ButtonsGrid">
+            <Grid x:Name="StandardModeGrid" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="Btn7" Grid.Row="0" Grid.Column="0" Content="7" Click="Number_Click"/>
+                <Button x:Name="Btn8" Grid.Row="0" Grid.Column="1" Content="8" Click="Number_Click"/>
+                <Button x:Name="Btn9" Grid.Row="0" Grid.Column="2" Content="9" Click="Number_Click"/>
+                <Button x:Name="BtnDivide" Grid.Row="0" Grid.Column="3" Content="/" Click="Operator_Click"/>
+
+                <Button x:Name="Btn4" Grid.Row="1" Grid.Column="0" Content="4" Click="Number_Click"/>
+                <Button x:Name="Btn5" Grid.Row="1" Grid.Column="1" Content="5" Click="Number_Click"/>
+                <Button x:Name="Btn6" Grid.Row="1" Grid.Column="2" Content="6" Click="Number_Click"/>
+                <Button x:Name="BtnMultiply" Grid.Row="1" Grid.Column="3" Content="*" Click="Operator_Click"/>
+
+                <Button x:Name="Btn1" Grid.Row="2" Grid.Column="0" Content="1" Click="Number_Click"/>
+                <Button x:Name="Btn2" Grid.Row="2" Grid.Column="1" Content="2" Click="Number_Click"/>
+                <Button x:Name="Btn3" Grid.Row="2" Grid.Column="2" Content="3" Click="Number_Click"/>
+                <Button x:Name="BtnMinus" Grid.Row="2" Grid.Column="3" Content="-" Click="Operator_Click"/>
+
+                <Button x:Name="Btn0" Grid.Row="3" Grid.Column="0" Content="0" Click="Number_Click"/>
+                <Button x:Name="Btn00" Grid.Row="3" Grid.Column="1" Content="00" Click="Number_Click"/>
+                <Button x:Name="BtnDecimal" Grid.Row="3" Grid.Column="2" Content="." Click="Decimal_Click"/>
+                <Button x:Name="BtnPlus" Grid.Row="3" Grid.Column="3" Content="+" Click="Operator_Click"/>
+
+                <Button x:Name="BtnClear" Grid.Row="4" Grid.Column="0" Content="C" Click="Clear_Click"/>
+                <Button x:Name="BtnClearEntry" Grid.Row="4" Grid.Column="1" Content="CE" Click="ClearEntry_Click"/>
+                <Button x:Name="BtnBackspace" Grid.Row="4" Grid.Column="2" Content="⌫" Click="Backspace_Click"/>
+                <Button x:Name="BtnEquals" Grid.Row="4" Grid.Column="3" Content="=" Click="Equals_Click"/>
+            </Grid>
+
+            <Grid x:Name="EngineeringModeGrid" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="BtnSin" Grid.Row="0" Grid.Column="0" Content="sin" Click="Function_Click"/>
+                <Button x:Name="BtnCos" Grid.Row="0" Grid.Column="1" Content="cos" Click="Function_Click"/>
+                <Button x:Name="BtnTan" Grid.Row="0" Grid.Column="2" Content="tan" Click="Function_Click"/>
+                <Button x:Name="BtnLog" Grid.Row="0" Grid.Column="3" Content="log" Click="Function_Click"/>
+                <Button x:Name="BtnLn" Grid.Row="0" Grid.Column="4" Content="ln" Click="Function_Click"/>
+                <Button x:Name="BtnSqrt" Grid.Row="0" Grid.Column="5" Content="√" Click="Function_Click"/>
+
+                <Button x:Name="BtnAsin" Grid.Row="1" Grid.Column="0" Content="asin" Click="Function_Click"/>
+                <Button x:Name="BtnAcos" Grid.Row="1" Grid.Column="1" Content="acos" Click="Function_Click"/>
+                <Button x:Name="BtnAtan" Grid.Row="1" Grid.Column="2" Content="atan" Click="Function_Click"/>
+                <Button x:Name="BtnPower10" Grid.Row="1" Grid.Column="3" Content="10^x" Click="Function_Click"/>
+                <Button x:Name="BtnExp" Grid.Row="1" Grid.Column="4" Content="e^x" Click="Function_Click"/>
+                <Button x:Name="BtnSquare" Grid.Row="1" Grid.Column="5" Content="x^2" Click="Function_Click"/>
+
+                <Button x:Name="BtnPi" Grid.Row="2" Grid.Column="0" Content="π" Click="Constant_Click"/>
+                <Button x:Name="BtnE" Grid.Row="2" Grid.Column="1" Content="e" Click="Constant_Click"/>
+                <Button x:Name="BtnAbs" Grid.Row="2" Grid.Column="2" Content="|x|" Click="Function_Click"/>
+                <Button x:Name="BtnFactorial" Grid.Row="2" Grid.Column="3" Content="x!" Click="Function_Click"/>
+                <Button x:Name="BtnReciprocal" Grid.Row="2" Grid.Column="4" Content="1/x" Click="Function_Click"/>
+                <Button x:Name="BtnPowerY" Grid.Row="2" Grid.Column="5" Content="x^y" Click="Operator_Click"/>
+
+                <Button x:Name="EngBtn7" Grid.Row="3" Grid.Column="0" Content="7" Click="Number_Click"/>
+                <Button x:Name="EngBtn8" Grid.Row="3" Grid.Column="1" Content="8" Click="Number_Click"/>
+                <Button x:Name="EngBtn9" Grid.Row="3" Grid.Column="2" Content="9" Click="Number_Click"/>
+                <Button x:Name="EngBtnDivide" Grid.Row="3" Grid.Column="3" Content="/" Click="Operator_Click"/>
+                <Button x:Name="EngLeftParen" Grid.Row="3" Grid.Column="4" Content="(" Click="Parenthesis_Click"/>
+                <Button x:Name="EngRightParen" Grid.Row="3" Grid.Column="5" Content=")" Click="Parenthesis_Click"/>
+
+                <Button x:Name="EngBtn4" Grid.Row="4" Grid.Column="0" Content="4" Click="Number_Click"/>
+                <Button x:Name="EngBtn5" Grid.Row="4" Grid.Column="1" Content="5" Click="Number_Click"/>
+                <Button x:Name="EngBtn6" Grid.Row="4" Grid.Column="2" Content="6" Click="Number_Click"/>
+                <Button x:Name="EngBtnMultiply" Grid.Row="4" Grid.Column="3" Content="*" Click="Operator_Click"/>
+                <Button x:Name="BtnPercent" Grid.Row="4" Grid.Column="4" Content="%" Click="Percent_Click"/>
+                <Button x:Name="BtnMod" Grid.Row="4" Grid.Column="5" Content="mod" Click="Operator_Click"/>
+
+                <Button x:Name="EngBtn1" Grid.Row="5" Grid.Column="0" Content="1" Click="Number_Click"/>
+                <Button x:Name="EngBtn2" Grid.Row="5" Grid.Column="1" Content="2" Click="Number_Click"/>
+                <Button x:Name="EngBtn3" Grid.Row="5" Grid.Column="2" Content="3" Click="Number_Click"/>
+                <Button x:Name="EngBtnMinus" Grid.Row="5" Grid.Column="3" Content="-" Click="Operator_Click"/>
+                <Button x:Name="EngBtnClear" Grid.Row="5" Grid.Column="4" Content="C" Click="Clear_Click"/>
+                <Button x:Name="EngBtnEquals" Grid.Row="5" Grid.Column="5" Content="=" Click="Equals_Click"/>
+
+                <Button x:Name="EngBtn0" Grid.Row="6" Grid.Column="1" Content="0" Click="Number_Click"/>
+                <Button x:Name="EngBtn00" Grid.Row="6" Grid.Column="2" Content="00" Click="Number_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
